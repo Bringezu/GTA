@@ -1,0 +1,205 @@
+/* Custom CSS for MN Test Analysis Dashboard */
+
+/* Main content area */
+.content-wrapper {
+  background-color: #f4f6f9;
+}
+
+/* Box styling */
+.box {
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.box.box-solid.box-primary > .box-header {
+  background: #3c8dbc;
+  color: #fff;
+}
+
+.box.box-solid.box-success > .box-header {
+  background: #00a65a;
+  color: #fff;
+}
+
+.box.box-solid.box-info > .box-header {
+  background: #00c0ef;
+  color: #fff;
+}
+
+.box.box-solid.box-warning > .box-header {
+  background: #f39c12;
+  color: #fff;
+}
+
+/* Value boxes */
+.small-box {
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+/* Buttons */
+.btn {
+  border-radius: 3px;
+}
+
+.btn-lg {
+  font-size: 18px;
+  padding: 10px 16px;
+}
+
+.btn-block {
+  margin-bottom: 10px;
+}
+
+/* DataTables */
+.dataTables_wrapper {
+  padding-top: 10px;
+}
+
+table.dataTable {
+  font-size: 14px;
+}
+
+table.dataTable thead th {
+  background-color: #f4f6f9;
+  font-weight: bold;
+}
+
+/* Highlighted row (significant results) */
+.dataTable tbody tr.significant {
+  background-color: #d4edda !important;
+}
+
+/* Sidebar */
+.sidebar-menu > li.active > a {
+  border-left-color: #3c8dbc;
+}
+
+/* Help text */
+.help-block {
+  color: #737373;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Verbatim output (code blocks) */
+pre {
+  background-color: #f4f6f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 13px;
+  color: #333;
+}
+
+/* HR styling */
+hr {
+  border-top: 1px solid #ddd;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Header improvements */
+h2 {
+  color: #3c8dbc;
+  font-weight: 500;
+  margin-top: 0;
+}
+
+h3 {
+  color: #555;
+  font-weight: 500;
+}
+
+h4 {
+  color: #666;
+  font-weight: 500;
+}
+
+/* List styling */
+ul, ol {
+  line-height: 1.8;
+}
+
+/* Link styling */
+a {
+  color: #3c8dbc;
+}
+
+a:hover {
+  color: #2e7099;
+  text-decoration: underline;
+}
+
+/* Progress bar */
+.progress {
+  height: 25px;
+  border-radius: 3px;
+}
+
+.progress-bar {
+  font-size: 14px;
+  line-height: 25px;
+}
+
+/* Notifications */
+.shiny-notification {
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.shiny-notification-error {
+  background-color: #dd4b39;
+  color: white;
+}
+
+.shiny-notification-warning {
+  background-color: #f39c12;
+  color: white;
+}
+
+.shiny-notification-message {
+  background-color: #00a65a;
+  color: white;
+}
+
+/* Input styling */
+.form-control {
+  border-radius: 3px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Select input */
+.selectize-input {
+  border-radius: 3px;
+}
+
+/* Numeric input */
+input[type="number"] {
+  border-radius: 3px;
+}
+
+/* Action button */
+.action-button {
+  font-weight: 500;
+}
+
+/* Dashboard header */
+.main-header .logo {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 10px;
+  }
+
+  .box {
+    margin-bottom: 15px;
+  }
+}
