@@ -3,7 +3,7 @@ Type: Package
 Title: Genotoxicity Test Analysis
 Version: 1.0.0
 Author: Frank Bringezu, CPS Merck Healthcare KGaA, Darmstadt Germany
-Maintainer: Your Name <your.email@example.com>
+Maintainer: Frank Bringezu <frank.bringezu@merckgroup.com>
 Description: A comprehensive package for analyzing genotoxicity test data,
     including micronucleus (MN) tests. Provides statistical analysis using
     Mann-Whitney U tests with Holm-Bonferroni correction, and includes a
@@ -19,6 +19,7 @@ Imports:
     DT (>= 0.30),
     yaml (>= 2.3.7),
     shinyjs (>= 2.1.0),
+    shinycssloaders (>= 1.0.0),
     rmarkdown (>= 2.0),
     knitr (>= 1.40),
     readxl (>= 1.4.0),

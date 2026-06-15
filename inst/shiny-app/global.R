@@ -7,6 +7,7 @@ library(shinydashboard)
 library(DT)
 library(yaml)
 library(shinyjs)
+library(shinycssloaders)
 
 # Load utility functions
 source("utils/file_utils.R", local = TRUE)

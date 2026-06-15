@@ -21,7 +21,11 @@ mod_results_ui <- function(id) {
         width = 12,
         p("Results of Mann-Whitney U test with Holm-Bonferroni correction."),
         p(strong("Note:"), "* indicates statistically significant result (p < alpha)"),
-        DT::dataTableOutput(ns("results_table"))
+        withSpinner(
+          DT::dataTableOutput(ns("results_table")),
+          type = 4,
+          color = "#FFC832"
+        )
       )
     ),
     fluidRow(
@@ -32,7 +36,7 @@ mod_results_ui <- function(id) {
         width = 12,
         fluidRow(
           column(
-            4,
+            3,
             downloadButton(
               ns("download_excel"),
               "Download Excel",
@@ -41,7 +45,7 @@ mod_results_ui <- function(id) {
             )
           ),
           column(
-            4,
+            3,
             downloadButton(
               ns("download_csv"),
               "Download CSV",
@@ -50,7 +54,16 @@ mod_results_ui <- function(id) {
             )
           ),
           column(
-            4,
+            3,
+            downloadButton(
+              ns("download_html"),
+              "Download HTML Report",
+              class = "btn-primary btn-block",
+              icon = icon("file-code")
+            )
+          ),
+          column(
+            3,
             downloadButton(
               ns("download_pdf"),
               "Download PDF Report",
@@ -58,6 +71,11 @@ mod_results_ui <- function(id) {
               icon = icon("file-pdf")
             )
           )
+        ),
+        br(),
+        helpText(
+          icon("info-circle"),
+          "HTML Report works without LaTeX. PDF Report requires LaTeX/tinytex to be installed."
         )
       )
     )
@@ -99,8 +117,7 @@ mod_results_server <- function(id, results, file_path, config) {
           backgroundColor = DT::styleEqual('*', '#d4edda')
         ) %>%
         DT::formatRound(
-          columns = c('Control_Median', 'Control_Mean', 'Control_SD',
-                     'Treatment_Median', 'Treatment_Mean', 'Treatment_SD'),
+          columns = c('Median', 'Mean', 'SD'),
           digits = 2
         )
     })
@@ -222,6 +239,47 @@ mod_results_server <- function(id, results, file_path, config) {
       }
     )
 
+    # Download HTML Report
+    output$download_html <- downloadHandler(
+      filename = function() {
+        timestamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
+        paste0("MN_Analysis_Report_", timestamp, ".html")
+      },
+      content = function(file) {
+        req(results(), file_path())
+
+        tryCatch({
+          # Extract study and file information
+          file_parts <- strsplit(file_path(), .Platform$file.sep)[[1]]
+          file_name <- file_parts[length(file_parts)]
+          study_name <- if (length(file_parts) >= 2) file_parts[length(file_parts) - 1] else "Unknown"
+
+          # Generate HTML report
+          generate_html_report(
+            results = results(),
+            study_name = study_name,
+            file_name = file_name,
+            control_group = config$default_control_group,
+            sig_level = config$default_sig_level,
+            output_file = file
+          )
+
+          showNotification(
+            "HTML report generated successfully",
+            type = "message",
+            duration = 3
+          )
+
+        }, error = function(e) {
+          showNotification(
+            paste("Error generating HTML report:", e$message),
+            type = "error",
+            duration = 5
+          )
+        })
+      }
+    )
+
     # Download PDF Report
     output$download_pdf <- downloadHandler(
       filename = function() {
@@ -257,7 +315,7 @@ mod_results_server <- function(id, results, file_path, config) {
           showNotification(
             paste("Error generating PDF report:", e$message),
             type = "error",
-            duration = 5
+            duration = 10
           )
         })
       }

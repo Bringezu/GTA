@@ -21,5 +21,6 @@ server <- function(input, output, session) {
   # Session info (for debugging)
   session$onSessionEnded(function() {
     cat("Session ended\n")
+    stopApp()
   })
 }

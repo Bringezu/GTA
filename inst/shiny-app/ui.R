@@ -2,11 +2,11 @@
 
 # Define UI
 ui <- dashboardPage(
-  skin = "blue",
+  skin = "yellow",
 
   # Dashboard Header
   dashboardHeader(
-    title = "MN Test Analysis",
+    title = "Merck - GTA",
     titleWidth = 300
   ),
 
@@ -25,10 +25,15 @@ ui <- dashboardPage(
     ),
     hr(),
     tags$div(
-      style = "padding: 15px;",
+      style = "padding: 15px; text-align: center;",
+      tags$img(src = "logo.png", width = "20%", style = "margin-bottom: 10px;"),
       tags$p(
-        style = "color: #b8c7ce; font-size: 12px;",
+        style = "color: #b8c7ce; font-size: 11px; margin-top: 10px;",
         strong("Version:"), app_version
+      ),
+      tags$p(
+        style = "color: #b8c7ce; font-size: 10px;",
+        "© CPS, Merck Healthcare KGaA"
       )
     )
   ),
@@ -97,10 +102,16 @@ ui <- dashboardPage(
         h2("About"),
         fluidRow(
           box(
-            title = "MN Test Analysis Dashboard",
+            title = "CPS GTA - Genotoxicity Test Analysis",
             status = "primary",
             solidHeader = TRUE,
             width = 12,
+            tags$div(
+              style = "text-align: center; padding: 10px;",
+              tags$h1(style = "color: #0F69AF; margin-bottom: 5px;", "GTA"),
+              tags$p(style = "color: #666; font-size: 14px;", "Genotoxicity Test Analysis Dashboard")
+            ),
+            hr(),
             h3("Overview"),
             p("This dashboard provides a user-friendly interface for analyzing micronucleus (MN) test data using Mann-Whitney U tests with Holm-Bonferroni multiple comparison correction."),
             hr(),
@@ -131,7 +142,15 @@ ui <- dashboardPage(
             hr(),
             h3("Version Information"),
             p(strong("Version:"), app_version),
-            p(strong("Application:"), app_description)
+            p(strong("Application:"), app_description),
+            p(strong("Organization:"), "Merck Healthcare KGaA"),
+            p(strong("Department:"), "Chemical and Preclincal Safety"),
+            p(strong("Author:"), "Frank Bringezu, PhD"),
+            hr(),
+            tags$div(
+              style = "text-align: center; color: #999; font-size: 12px;",
+              "© 2026 Merck Healthcare KGaA, Darmstadt, Germany"
+            )
           )
         )
       )

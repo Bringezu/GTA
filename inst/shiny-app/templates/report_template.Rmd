@@ -23,6 +23,23 @@ library(knitr)
 
 **Report Date:** `r params$report_date`
 
+```{r study_metadata, results='asis'}
+if (!is.null(params$results) && nrow(params$results) > 0) {
+  if ("Study_Number" %in% names(params$results)) {
+    cat(paste0("\n\n**Study Number:** ", unique(params$results$Study_Number)[1], "\n\n"))
+  }
+  if ("Test_Item" %in% names(params$results)) {
+    cat(paste0("**Test Item:** ", unique(params$results$Test_Item)[1], "\n\n"))
+  }
+  if ("Species" %in% names(params$results)) {
+    cat(paste0("**Species:** ", unique(params$results$Species)[1], "\n\n"))
+  }
+  if ("Sex" %in% names(params$results)) {
+    cat(paste0("**Sex:** ", unique(params$results$Sex)[1], "\n\n"))
+  }
+}
+```
+
 ---
 
 ## Analysis Parameters
@@ -42,15 +59,20 @@ if (!is.null(params$results)) {
   # Format numeric columns
   results_formatted <- params$results
 
-  numeric_cols <- sapply(results_formatted, is.numeric)
-  results_formatted[numeric_cols] <- lapply(
-    results_formatted[numeric_cols],
+  # Remove metadata columns from display (shown in header instead)
+  metadata_cols <- c("Study_Number", "Test_Item", "Species", "Sex")
+  display_cols <- setdiff(names(results_formatted), metadata_cols)
+  results_display <- results_formatted[, display_cols, drop = FALSE]
+
+  numeric_cols <- sapply(results_display, is.numeric)
+  results_display[numeric_cols] <- lapply(
+    results_display[numeric_cols],
     function(x) round(x, 4)
   )
 
   # Create table
   kable(
-    results_formatted,
+    results_display,
     caption = "Mann-Whitney U Test Results with Holm-Bonferroni Correction",
     booktabs = TRUE,
     longtable = TRUE
@@ -66,8 +88,10 @@ if (!is.null(params$results)) {
 
 ```{r summary}
 if (!is.null(params$results)) {
-  total_comparisons <- nrow(params$results)
-  significant_results <- sum(params$results$Significance == "*", na.rm = TRUE)
+  # Exclude control group (first row) and any rows without p-values from counting
+  comparison_results <- params$results[!is.na(params$results$p_value), ]
+  total_comparisons <- nrow(comparison_results)
+  significant_results <- sum(comparison_results$Significance == "*", na.rm = TRUE)
 
   cat(paste0("- **Total Comparisons:** ", total_comparisons, "\n"))
   cat(paste0("- **Significant Results:** ", significant_results, "\n"))
@@ -75,10 +99,17 @@ if (!is.null(params$results)) {
 
   if (significant_results > 0) {
     cat("\n### Significant Comparisons:\n\n")
-    sig_results <- params$results[params$results$Significance == "*", ]
+    sig_results <- comparison_results[comparison_results$Significance == "*", ]
     for (i in 1:nrow(sig_results)) {
-      cat(paste0("- ", sig_results$Comparison[i],
-                 " (p-adjusted = ", round(sig_results$p_value_adj[i], 4), ")\n"))
+      # Show group name, p-value, and Holm threshold for transparency
+      threshold_text <- if (!is.na(sig_results$local_ai[i])) {
+        paste0(", threshold = ", round(sig_results$local_ai[i], 4))
+      } else {
+        ""
+      }
+      cat(paste0("- Group ", sig_results$GroupNumber[i], " (", sig_results$GroupName[i], ")",
+                 ": p-value = ", round(sig_results$p_value[i], 4),
+                 threshold_text, "\n"))
     }
   }
 }

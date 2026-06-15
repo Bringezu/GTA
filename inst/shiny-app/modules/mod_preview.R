@@ -28,7 +28,11 @@ mod_preview_ui <- function(id) {
           class = "btn-primary"
         ),
         hr(),
-        DT::dataTableOutput(ns("data_table"))
+        withSpinner(
+          DT::dataTableOutput(ns("data_table")),
+          type = 4,
+          color = "#FFC832"
+        )
       )
     )
   )
@@ -43,7 +47,7 @@ mod_preview_ui <- function(id) {
 mod_preview_server <- function(id, file_path, config) {
   moduleServer(id, function(input, output, session) {
 
-    # Reactive value for loaded data
+    # Reactive value for loaded data (now includes metadata)
     loaded_data <- reactiveVal(NULL)
 
     # Load data when button is clicked
@@ -54,12 +58,18 @@ mod_preview_server <- function(id, file_path, config) {
         # Show progress
         withProgress(message = "Loading data...", value = 0, {
 
-          incProgress(0.3, detail = "Reading Excel file")
+          incProgress(0.2, detail = "Reading metadata from Sheet 1")
 
-          # Load data
-          data <- load_xlsx_sheet(file_path(), sheet = config$sheet_number)
+          # Load data and metadata
+          result <- load_xlsx_sheet(file_path(), sheet = config$sheet_number)
 
-          incProgress(0.4, detail = "Validating data")
+          incProgress(0.3, detail = "Reading data from Sheet 2")
+
+          # Extract data and metadata
+          data <- result$data
+          metadata <- result$metadata
+
+          incProgress(0.3, detail = "Validating data")
 
           # Validate data structure
           validation <- validate_mn_data(data)
@@ -74,10 +84,13 @@ mod_preview_server <- function(id, file_path, config) {
             return()
           }
 
-          incProgress(0.3, detail = "Complete")
+          incProgress(0.2, detail = "Complete")
 
-          # Store loaded data
-          loaded_data(data)
+          # Store loaded data with metadata
+          loaded_data(list(
+            data = data,
+            metadata = metadata
+          ))
 
           showNotification(
             paste("Data loaded successfully:", nrow(data), "rows"),
@@ -108,8 +121,14 @@ mod_preview_server <- function(id, file_path, config) {
     output$data_table <- DT::renderDataTable({
       req(loaded_data())
 
+      data <- if (is.list(loaded_data()) && "data" %in% names(loaded_data())) {
+        loaded_data()$data
+      } else {
+        loaded_data()
+      }
+
       DT::datatable(
-        loaded_data(),
+        data,
         options = list(
           pageLength = 25,
           scrollX = TRUE,
@@ -125,7 +144,14 @@ mod_preview_server <- function(id, file_path, config) {
 
     # Value box: Row count
     output$row_count <- renderValueBox({
-      data <- loaded_data()
+      result <- loaded_data()
+
+      data <- if (is.list(result) && "data" %in% names(result)) {
+        result$data
+      } else {
+        result
+      }
+
       count <- if (is.null(data)) 0 else nrow(data)
 
       valueBox(
@@ -138,7 +164,13 @@ mod_preview_server <- function(id, file_path, config) {
 
     # Value box: Group count
     output$group_count <- renderValueBox({
-      data <- loaded_data()
+      result <- loaded_data()
+
+      data <- if (is.list(result) && "data" %in% names(result)) {
+        result$data
+      } else {
+        result
+      }
 
       if (is.null(data) || !"GroupNumber" %in% names(data)) {
         count <- 0
@@ -156,7 +188,14 @@ mod_preview_server <- function(id, file_path, config) {
 
     # Value box: Column count
     output$column_count <- renderValueBox({
-      data <- loaded_data()
+      result <- loaded_data()
+
+      data <- if (is.list(result) && "data" %in% names(result)) {
+        result$data
+      } else {
+        result
+      }
+
       count <- if (is.null(data)) 0 else ncol(data)
 
       valueBox(
@@ -169,7 +208,13 @@ mod_preview_server <- function(id, file_path, config) {
 
     # Value box: Data status
     output$data_status <- renderValueBox({
-      data <- loaded_data()
+      result <- loaded_data()
+
+      data <- if (is.list(result) && "data" %in% names(result)) {
+        result$data
+      } else {
+        result
+      }
 
       if (is.null(data)) {
         valueBox(

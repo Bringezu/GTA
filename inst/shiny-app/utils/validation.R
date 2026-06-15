@@ -18,7 +18,7 @@ validate_control_group <- function(control_group, data) {
     return(list(valid = FALSE, message = "Control group must be positive"))
   }
 
-  if (!is.null(data) && "GroupNumber" %in% names(data)) {
+  if (!is.null(data) && "Group_num" %in% names(data)) {
     available_groups <- unique(data$GroupNumber)
     if (!(control_group %in% available_groups)) {
       return(list(

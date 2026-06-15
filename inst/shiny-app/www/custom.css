@@ -1,4 +1,27 @@
-/* Custom CSS for MN Test Analysis Dashboard */
+/* Custom CSS for MN Test Analysis Dashboard - Merck Template */
+
+/* Merck Official Color Palette */
+:root {
+  --merck-yellow: #FFC832;
+  --merck-blue: #2DBECD;
+  --merck-blue2: #0F69AF;
+  --merck-purple: #503291;
+  --merck-pink: #EB3C96;
+  --merck-green: #A5CD50;
+  --merck-green2: #149B5F;
+}
+
+/* Merck Typography */
+h1 {
+  font-family: "Merck", "Times New Roman", serif;
+  font-size: 20px;
+}
+
+.main-header .logo {
+  font-family: "Merck", "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: bold;
+}
 
 /* Main content area */
 .content-wrapper {
@@ -12,23 +35,23 @@
 }
 
 .box.box-solid.box-primary > .box-header {
-  background: #3c8dbc;
+  background: var(--merck-blue2);
   color: #fff;
 }
 
 .box.box-solid.box-success > .box-header {
-  background: #00a65a;
+  background: var(--merck-green2);
   color: #fff;
 }
 
 .box.box-solid.box-info > .box-header {
-  background: #00c0ef;
+  background: var(--merck-blue);
   color: #fff;
 }
 
 .box.box-solid.box-warning > .box-header {
-  background: #f39c12;
-  color: #fff;
+  background: var(--merck-yellow);
+  color: #333;
 }
 
 /* Value boxes */
@@ -72,7 +95,7 @@ table.dataTable thead th {
 
 /* Sidebar */
 .sidebar-menu > li.active > a {
-  border-left-color: #3c8dbc;
+  border-left-color: var(--merck-yellow);
 }
 
 /* Help text */
@@ -101,7 +124,7 @@ hr {
 
 /* Header improvements */
 h2 {
-  color: #3c8dbc;
+  color: var(--merck-blue2);
   font-weight: 500;
   margin-top: 0;
 }
@@ -123,11 +146,11 @@ ul, ol {
 
 /* Link styling */
 a {
-  color: #3c8dbc;
+  color: var(--merck-blue2);
 }
 
 a:hover {
-  color: #2e7099;
+  color: var(--merck-purple);
   text-decoration: underline;
 }
 
@@ -191,6 +214,72 @@ input[type="number"] {
 .main-header .logo {
   font-weight: 500;
   font-size: 18px;
+}
+
+/* Merck-specific styling */
+.sidebar-logo {
+  text-align: center;
+  padding: 10px;
+  background: linear-gradient(135deg, var(--merck-blue2) 0%, var(--merck-purple) 100%);
+}
+
+.sidebar-footer {
+  border-top: 2px solid var(--merck-yellow);
+}
+
+/* Enhanced value boxes with Merck colors */
+.info-box {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+.small-box.bg-aqua {
+  background-color: var(--merck-blue) !important;
+}
+
+.small-box.bg-green {
+  background-color: var(--merck-green2) !important;
+}
+
+.small-box.bg-yellow {
+  background-color: var(--merck-yellow) !important;
+  color: #333 !important;
+}
+
+.small-box.bg-red {
+  background-color: var(--merck-pink) !important;
+}
+
+/* Button enhancements */
+.btn-primary {
+  background-color: var(--merck-blue2) !important;
+  border-color: var(--merck-blue2) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--merck-purple) !important;
+  border-color: var(--merck-purple) !important;
+}
+
+.btn-success {
+  background-color: var(--merck-green2) !important;
+  border-color: var(--merck-green2) !important;
+}
+
+.btn-success:hover {
+  background-color: var(--merck-green) !important;
+  border-color: var(--merck-green) !important;
+}
+
+.btn-warning {
+  background-color: var(--merck-yellow) !important;
+  border-color: var(--merck-yellow) !important;
+  color: #333 !important;
+}
+
+.btn-info {
+  background-color: var(--merck-blue) !important;
+  border-color: var(--merck-blue) !important;
 }
 
 /* Responsive adjustments */
