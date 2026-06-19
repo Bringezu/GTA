@@ -2,6 +2,8 @@
 
 A professional Shiny dashboard application for analyzing micronucleus (MN) test data using Mann-Whitney U tests with Holm-Bonferroni multiple comparison correction.
 
+**GitHub Repository**: https://github.com/Bringezu/GTA
+
 ## Features
 
 - **Configuration Management**: Set and save root directory path for data files
@@ -19,15 +21,29 @@ A professional Shiny dashboard application for analyzing micronucleus (MN) test 
 
 ## Installation
 
-```r
-# Install the GTA package
-# (Instructions depend on your installation method)
+### From GitHub
 
-# Install required dependencies
+```bash
+# Clone the repository
+git clone https://github.com/Bringezu/GTA.git
+cd GTA
+```
+
+### Install Dependencies
+
+```r
+# Install required packages
 install.packages(c(
   "shiny", "shinydashboard", "DT", "yaml", "shinyjs",
   "rmarkdown", "knitr", "readxl", "coin", "dplyr", "writexl"
 ))
+```
+
+### Install the GTA Package
+
+```r
+# Install from local source
+install.packages(".", repos = NULL, type = "source")
 ```
 
 ## Launching the Dashboard
@@ -187,6 +203,18 @@ The PDF report includes:
 - **Version**: 1.0.0
 - **R Version**: >= 4.0.0
 
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests on GitHub.
+
 ## Support
 
-For issues or questions, please contact the package maintainer or file an issue in the package repository.
+For issues or questions:
+- File an issue on GitHub: https://github.com/Bringezu/GTA/issues
+- Contact the package maintainer
+
+## Repository Information
+
+- **GitHub**: https://github.com/Bringezu/GTA
+- **Branch**: master
+- **License**: See LICENSE file in repository

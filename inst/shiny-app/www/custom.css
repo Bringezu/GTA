@@ -35,7 +35,7 @@ h1 {
 }
 
 .box.box-solid.box-primary > .box-header {
-  background: var(--merck-blue2);
+  background: var(--merck-blue);
   color: #fff;
 }
 
@@ -124,7 +124,7 @@ hr {
 
 /* Header improvements */
 h2 {
-  color: var(--merck-blue2);
+  color: var(--merck-blue);
   font-weight: 500;
   margin-top: 0;
 }
@@ -220,7 +220,7 @@ input[type="number"] {
 .sidebar-logo {
   text-align: center;
   padding: 10px;
-  background: linear-gradient(135deg, var(--merck-blue2) 0%, var(--merck-purple) 100%);
+  background: linear-gradient(135deg, var(--merck-blue) 0%, var(--merck-purple) 100%);
 }
 
 .sidebar-footer {
@@ -252,8 +252,8 @@ input[type="number"] {
 
 /* Button enhancements */
 .btn-primary {
-  background-color: var(--merck-blue2) !important;
-  border-color: var(--merck-blue2) !important;
+  background-color: var(--merck-blue) !important;
+  border-color: var(--merck-blue) !important;
 }
 
 .btn-primary:hover {

@@ -1,5 +1,21 @@
 # MN Test Analysis Dashboard - Quick Start Guide
 
+## GitHub Repository
+
+This project is hosted on GitHub: https://github.com/Bringezu/GTA
+
+To clone or update:
+
+```bash
+# Clone the repository
+git clone https://github.com/Bringezu/GTA.git
+
+# Or update existing repository
+git pull origin master
+```
+
+---
+
 ## 5-Minute Setup
 
 ### Step 1: Verify Installation (1 minute)
@@ -184,6 +200,7 @@ Your Excel files should have **Sheet 2** with these columns:
 
 ## Getting Help
 
+- **GitHub Issues**: https://github.com/Bringezu/GTA/issues
 - **Documentation**: See `INSTALLATION_GUIDE.md` for detailed instructions
 - **About Tab**: Click the About tab in the dashboard for help
 - **README**: See `inst/shiny-app/README.md` for detailed usage
@@ -214,5 +231,26 @@ Once comfortable with basic usage:
 
 ---
 
+## Version Control
+
+This project uses Git for version control:
+
+```bash
+# Check current status
+git status
+
+# Pull latest changes
+git pull origin master
+
+# View commit history
+git log --oneline
+
+# View remote repository
+git remote -v
+```
+
+---
+
 **Version**: 1.0.0
-**Need Help?** See `INSTALLATION_GUIDE.md` for troubleshooting
+**GitHub**: https://github.com/Bringezu/GTA
+**Need Help?** See `INSTALLATION_GUIDE.md` or file an issue on GitHub
